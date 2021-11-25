@@ -1,0 +1,203 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
+@import "recet.css";
+@import "variables.css";
+/*component*/
+@import "components/status-bar.css";
+@import "components/nav-bar.css";
+@import "components/screen-header.css";
+@import "components/user-component.css";
+@import "components/badge.css";
+/*screen*/
+@import "screens/login.css";
+@import "screens/friends.css";
+@import "screens/find.css";
+
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #2e363e;
+  margin: 0;
+  height: 100%;
+  background: white;
+  font-family: Dotum,'돋움',Helvetica,sans-serif;
+}
+
+.main-screen {
+  padding: 0px var(--horizontal-space);
+}
+
+caption {
+  width:700px;
+  height:50px;
+}
+
+#wrapper {
+    position: relative;
+    height: 100%;
+}
+
+#content {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    width: 460px;
+}
+
+h1 {
+  text-align: center;
+  display: block;
+  font-size: 1.8em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  font-weight: bold;
+  width:200px;
+  height:40px;
+  border:solid lightblue;
+  border-radius:15px;
+  margin:15px 1 0 30px;
+  padding:10px 5 0 70px;
+}
+
+h3 {
+    margin: 19px 0 8px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.box {
+    display: block;
+    width: 100%;
+    height: 51px;
+    border: solid 1px #dadada;
+    padding: 10px 14px 10px 14px;
+    box-sizing: border-box;
+    background: #fff;
+    position: relative;
+}
+
+.int {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 29px;
+    border: none;
+    background: #fff;
+    font-size: 15px;
+}
+
+caption span {
+  text-align: center;
+  caption-side: top;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Arial, sans-serif;
+  width: 700px;
+  height: 50px;
+
+}
+
+td {
+  width:20%;
+  color:#678197;
+  line-height:25px;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.pagination {
+  list-style: none;
+  display: inline-block;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.pagination li {
+  display: inline;
+  text-align: center;
+}
+
+.pagination a{
+  float: left;
+  display: block;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 5px 12px;
+  color: #96a0ad;
+  line-height: 1.5;
+}
+
+.first {
+  margin-right: 15px;
+}
+
+.last {
+  margin-left: 15px;
+}
+
+.first:hover, .last:hover, .left:hover, .right:hover{
+  color: #2e9cdf;
+}
+
+.pagination a.active{
+  cursor: default;
+  color: #ffffff;
+}
+
+.pagination a:active {
+  outline: none;}
+
+.modal .num {
+  margin-left: 3px;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  -moz-border-radius: 100%;
+  -webkit-border-radius: 100%;
+  border-radius: 100%;}
+
+.modal .num:hover {
+  background-color: #2e9cdf;
+  color: #ffffff;}
+
+.modal .num.active, .modal .num:active {
+  background-color: #2e9cdf;
+  cursor: pointer;}
+
+.arrow-left {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right:10px solid blue; }
+
+button {
+  background-color: lightblue;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+#btnJoin {
+  background-color: lightblue;
+  width: 210px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: white;
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+#liSearchOption {
+  margin:0 auto; 
+  margin-top: 30px; 
+  width:auto; 
+  height:100px;
+}

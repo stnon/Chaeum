@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservation">
+	<select id="getResInfoList_E" parameterType="String" resultType="reservation">
+		SELECT * FROM RESERVATION WHERE EMAIL = #{email} ORDER BY PAYMENT_ID DESC
+	</select>
+	
+	<select id="getResInfo" parameterType="reservation" resultType="reservation">
+		SELECT * FROM RESERVATION WHERE RESERVATION_ID = #{reservation_id}
+	</select>
+	
+	<select id="getResInfoList" parameterType="reservation" resultType="reservation">
+		SELECT * FROM RESERVATION ORDER BY RESERVATION_ID
+	</select>
+	
+	<insert id="insertReservation" parameterType="reservation">
+		INSERT INTO RESERVATION(reservation_id, reservation_checkin, reservation_checkout, reservation_status, reservation_price, 
+					reservation_date, studyroom_id, email, payment_id) VALUES (#{reservation_id}, #{reservation_checkin}, #{reservation_checkout}, #{reservation_status}, #{reservation_price}, 
+					#{reservation_date},#{studyroom_id}, #{email}, (SELECT NVL(MAX(payment_id),0)+1 FROM RESERVATION))
+	</insert>
+	
+	<select id="getResId" parameterType="reservation" resultType="int">
+		SELECT RESERVATION_ID FROM RESERVATION WHERE EMAIL = #{email} AND RESERVATION_DATE = #{reservation_date} AND RESERVATION_CHECKIN = #{reservation_checkin} AND RESERVATION_CHECKOUT = #{reservation_checkout}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+

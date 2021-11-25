@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+	div {
+		display: block;
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+	
+	.subtitle {
+		width: 100%;
+		margin-top: 56px;
+	}
+	
+	ul, li, ol {
+		list-style: none;
+	}
+	
+	.title02 {
+		background: url("../../images/header/titlebg02.jpg") no-repeat;
+		height: 300px;
+	}
+	
+	.subtitle span {
+		font-size: 23px;
+		color: #fff;
+		border-bottom: 2px solid #fff;
+		padding: 0 0 5px 0;
+	}
+	
+	.subtitle h2 {
+		color: #fff;
+		text-align: center;
+		font-size: 50px;
+		font-weight: 300;
+		line-height: 65px;
+		padding-top: 65px;
+	}
+	
+	.subtap {
+		clear: both;
+		border-bottom: 1px solid #ffb400;
+		border-top: 1px solid #ffb400;
+		overflow: hidden;
+	}
+	
+	.subtap ul {
+		margin: 0 auto;
+		text-align: center
+	}
+	
+	.subtap li {
+		cursor: pointer;
+		display: inline-block;
+		font-size: 18px;
+	}
+	
+	.subtap li a {
+		display: block;
+		padding: 20px 30px;
+		font-size: 18px;
+		color: #333;
+		text-decoration: none;
+	}
+	
+	.tapon {
+		background: #ffb400;
+		display: inline;
+		color: #fff;
+	}
+	
+	
+	
+	.article_title {
+		margin: 100px 0 0 0
+	}
+	
+	.article_title h3 {
+		font-size: 35px;
+		font-weight: 400;
+		text-align: center;
+		background: url(../../images/service/line.jpg) no-repeat center bottom;
+		padding: 0 0 20px 0
+	}
+	
+	.article_title p {
+		font-size: 16px;
+		color: #6f6f6f;
+		line-height: 23px;
+		text-align: center;
+		margin: 20px 0 40px 0;
+	}
+	
+	.article_title ul {
+		width: 1200px;
+		margin: 0 auto 100px auto;
+		position: relative
+	}
+	
+	.article_title li {
+		font-size: 18px;
+		line-height: 25px;
+		margin: 23px 0
+	}
+	
+	.article_title a {
+		position: absolute;
+		right: 0;
+		top: 10px
+	}

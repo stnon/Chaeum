@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+.contentbox { width: 768px; margin: 0 auto; padding: 30px 50px 100px;}
+
+.heading {display:table; position: relative; width:100%; padding-bottom: 15px; border-bottom: 2px solid #704de4; margin-top: 30px; border-collapse: separate;}
+
+.heading h3 {display: table-cell; font-size: 20px; line-height: 20px;}
+
+.option {position: absolute; color: #704de4; right: 0;}
+.price {font-size: 20px; }
+.unit {font-size:  14px; color: #949494;}
+
+.info_photo {position:relative; margin-top:30px; min-height: 170px; font-size: 16px; line-height: 22px; background: #fff;}
+.photo { width: 140px; height: 140px; position: absolute; left:0; top:0; margin-left:30px;}
+img {width: 140px; height: 140px;}
+.rm_name {width:430px; display: block; padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid #ebebeb; font-size: 24px; color:#000; position:absolute; right: 0;}
+
+ul{display: block; list-style: none;}
+.facility_wrap {min-height: 100px;}
+.facility_list li {position: relative; display: table; padding: 0 22px 0 54px; height: 36px; margin-top: 30px; color:#949494; float: left; width:25%; font-size: 14px;}
+
+.reserve-info {padding:0 30px; background: #fff;}
+.reserve-date {padding: 20px 0; color:#000; position: relative; font-size: 16px; border-bottom: 1px solid #ebebeb;}
+.details {position: absolute; top:20px; right: 0; font-size: 16px; color:#656565;}
+
+.user-wrap {margin-top: 30px;  position: relative;}
+dl.flex_box {display: table; width: 100px; padding:0;}
+.flex {display: table-cell; }
+.tit {padding-top:15px; color: #656565; font-size: 16px;}
+dd input {display: inline-block; position: absolute; right:0; background-color: #fff; width: 580px; height: 50px;
+font-size: 16px; border-radius: 0; color: #000; border: 1px solid #e0e0e0; padding:0 16px; line-height: 1.2; }
+textarea {display:inline-block; position: absolute; right: 0; width: 580px; height: 134px; background-color: #fff; padding:15px 16px; 
+font-size: 16px; border-radius: 0; color:#000; border:1px solid #e0e0e0; resize: none;}
+.confirm {margin-left:300px; margin-top: 100px;}
+#confirm{width: 70px;}
+

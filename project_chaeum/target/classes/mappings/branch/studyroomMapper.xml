@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="studyroom">
+	<insert id="insertStudyroom" parameterType="studyroom">
+		INSERT INTO STUDYROOM (STUDYROOM_ID, STUDYROOM_NAME, STUDYROOM_PRICE, STUDYROOM_NUM, STUDYROOM_SIZE, STUDYROOM_STRUCTURES, STUDYROOM_INFO, BRANCH_ID)
+		VALUES (#{study_id},#{studyroom_name}, #{studyroom_price}, #{studyroom_num}, #{studyroom_size}, #{studyroom_structure}, #{studyroom_info}, #{branch_id)
+	</insert>
+	
+	<delete id="deleteStudyroom" parameterType="studyroom">
+		DELETE FROM STUDYROOM WHERE STDUDYROOM_ID = #{studyroom_id}
+	</delete>
+
+	<select id="getStudyroomList" parameterType="studyroom" resultType="studyroom">
+		SELECT * FROM STUDYROOM ORDER BY STUDYROOM_ID
+	</select>
+	
+	<select id="getStudyroomList_Bid" parameterType="int" resultType="studyroom">
+		SELECT * FROM STUDYROOM WHERE BRANCH_ID = #{branch_id}
+	</select>
+	
+	<select id="getStudyroom" parameterType="studyroom" resultType="studyroom">
+		SELECT * FROM STUDYROOM WHERE STUDYROOM_ID = #{studyroom_id}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+

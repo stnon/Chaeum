@@ -1,0 +1,11 @@
+@charset "UTF-8";
+.agree{ width:1200px; position:relative; }
+h3 {display:block; font-weigth:bold;}
+.agree textarea {width:100%; padding:15px 0;  font-size:13px; color:#999; line-height: 25px; height: 190px; border-left-width:0; border-right-width: 0; border-top:1px solid #7e7e7e; border-bottom:1px soid #e5e5e5;}
+.member_inner {
+	width: 648px !important;
+	padding: 32px;
+	margin: 0 auto;
+	box-sizing: border-box;
+	background: #fff;
+}

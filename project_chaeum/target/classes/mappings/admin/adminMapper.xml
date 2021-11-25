@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+	
+	<!-- 전체 지점 월 매출 -->
+	<select id="selectAll_Month" parameterType="admin" resultType="admin">
+		SELECT SUM(R.RESERVATION_PRICE) AS MONTHSALE, BRANCH_ID AS BRANCHID, BRANCH_NAME AS BRANCHNAME, #{month} AS MONTH FROM RESERVATION R
+		FULL OUTER JOIN LOCKER L
+		ON R.LOCKER_ID = L.LOCKER_ID
+		FULL OUTER JOIN STUDYROOM SR
+		ON R.STUDYROOM_ID = SR.STUDYROOM_ID
+		FULL OUTER JOIN BRANCH B
+		ON B.BRANCH_ID = L.BRANCH_ID OR B.BRANCH_ID = SR.BRANCH_ID
+		FULL OUTER JOIN PAYMENT P
+		ON R.PAYMENT_ID = P.PAYMENT_ID
+		WHERE R.RESERVATION_ID IS NOT NULL
+		AND P.PAYMENT_ID IS NOT NULL
+		AND R.RESERVATION_STATUS = '바로결제'
+		AND TO_CHAR(P.PAYMENT_DATE, 'MM') = #{month}
+		GROUP BY BRANCH_ID, BRANCH_NAME
+		ORDER BY MONTHSALE DESC
+	</select>
+	
+	<!-- 전체 지점 일 매출 --> 
+	<select id="selectAll_Day" parameterType="admin" resultType="admin">
+		SELECT SUM(R.RESERVATION_PRICE) AS DAYSALE, BRANCH_ID AS BRANCHID, BRANCH_NAME AS BRANCHNAME, #{month} AS MONTH, #{day} AS DAY FROM RESERVATION R
+		FULL OUTER JOIN LOCKER L
+		ON R.LOCKER_ID = L.LOCKER_ID
+		FULL OUTER JOIN STUDYROOM SR
+		ON R.STUDYROOM_ID = SR.STUDYROOM_ID
+		FULL OUTER JOIN BRANCH B
+		ON B.BRANCH_ID = L.BRANCH_ID OR B.BRANCH_ID = SR.BRANCH_ID
+		FULL OUTER JOIN PAYMENT P
+		ON R.PAYMENT_ID = P.PAYMENT_ID
+		WHERE R.RESERVATION_ID IS NOT NULL
+		AND P.PAYMENT_ID IS NOT NULL
+		AND R.RESERVATION_STATUS = '바로결제'
+		AND TO_CHAR(P.PAYMENT_DATE, 'MM') = #{month}
+		AND TO_CHAR(P.PAYMENT_DATE, 'DD') = #{day}
+		GROUP BY BRANCH_ID, BRANCH_NAME
+		ORDER BY DAYSALE DESC
+	</select>
+	
+	<!-- 지정 지점 월 매출(전월 대비에도 사용) -->
+	<select id="selectOne_Month" parameterType="admin" resultType="admin">
+		SELECT SUM(R.RESERVATION_PRICE) AS MONTHSALE, BRANCH_ID AS BRANCHID, BRANCH_NAME AS BRANCHNAME, #{month} AS MONTH FROM RESERVATION R
+		FULL OUTER JOIN LOCKER L
+		ON R.LOCKER_ID = L.LOCKER_ID
+		FULL OUTER JOIN STUDYROOM SR
+		ON R.STUDYROOM_ID = SR.STUDYROOM_ID
+		FULL OUTER JOIN BRANCH B
+		ON B.BRANCH_ID = L.BRANCH_ID OR B.BRANCH_ID = SR.BRANCH_ID
+		FULL OUTER JOIN PAYMENT P
+		ON R.PAYMENT_ID = P.PAYMENT_ID
+		WHERE R.RESERVATION_ID IS NOT NULL
+		AND P.PAYMENT_ID IS NOT NULL
+		AND R.RESERVATION_STATUS = '바로결제'
+		AND TO_CHAR(P.PAYMENT_DATE, 'MM') = #{month}
+		AND BRANCH_ID = #{branchid}
+		GROUP BY BRANCH_ID, BRANCH_NAME
+	</select>
+	
+	<!-- 지정 지점 일 매출(전일 대비에도 사용) -->
+	<select id="selectOne_Day" parameterType="admin" resultType="admin">
+		SELECT SUM(R.RESERVATION_PRICE) AS DAYSALE, BRANCH_ID AS BRANCHID, BRANCH_NAME AS BRANCHNAME, #{month} AS MONTH, #{day} AS DAY FROM RESERVATION R
+		FULL OUTER JOIN LOCKER L
+		ON R.LOCKER_ID = L.LOCKER_ID
+		FULL OUTER JOIN STUDYROOM SR
+		ON R.STUDYROOM_ID = SR.STUDYROOM_ID
+		FULL OUTER JOIN BRANCH B
+		ON B.BRANCH_ID = L.BRANCH_ID OR B.BRANCH_ID = SR.BRANCH_ID
+		FULL OUTER JOIN PAYMENT P
+		ON R.PAYMENT_ID = P.PAYMENT_ID
+		WHERE R.RESERVATION_ID IS NOT NULL
+		AND P.PAYMENT_ID IS NOT NULL
+		AND R.RESERVATION_STATUS = '바로결제'
+		AND TO_CHAR(P.PAYMENT_DATE, 'MM') = #{month}
+		AND TO_CHAR(P.PAYMENT_DATE, 'DD') = #{day}
+		AND BRANCH_ID = #{branchid}
+		GROUP BY BRANCH_ID, BRANCH_NAME
+	</select>
+	
+	<!-- 지정 월 방문자 수(기본값 현재 시간 기준) -->
+	<select id="selectMonth_visitcnt" parameterType="admin" resultType="admin">
+		SELECT SUM(VISITCNT) AS VISITCNT, #{month} AS MONTH 
+		FROM VISIT 
+		WHERE TO_CHAR(VISITDATE, 'MM') = #{month}
+	</select>
+	
+	<!-- 지정 월 가입자 수(기본값 현재 시간 기준) -->
+	<select id="selectMonth_regcnt" parameterType="admin" resultType="admin">
+		SELECT COUNT(email) AS REGCNT, #{month} AS MONTH 
+		FROM MEMBER 
+		WHERE TO_CHAR(m_regdate, 'MM') = #{month} 
+		AND RANK = '일반회원'
+	</select>
+	
+	<!-- 연간 방문자 수 추이 차트 값 -->
+	<select id="visitcntlist" parameterType="admin" resultType="admin">
+		SELECT SUM(VISITCNT) AS VISITCNT, TO_CHAR(VISITDATE, 'MM') AS MONTH
+		FROM VISIT
+		GROUP BY TO_CHAR(VISITDATE, 'MM')
+		ORDER BY TO_CHAR(VISITDATE, 'MM')
+	</select>
+	
+	<!-- 로그인 시 방문자 수 증가 -->
+	<update id="updatevisitcnt" parameterType="String">
+		UPDATE VISIT SET VISITCNT = NVL(VISITCNT, 0) + 1 WHERE VISITDATE = #{now}
+	</update>
+	
+	<!-- 방문자 수 증가 할때 기존 데이터 없을 시 -->
+	<insert id="insertvisitcnt" parameterType="String">
+		INSERT INTO VISIT (VISITDATE, VISITCNT)
+		VALUES(#{now}, 1)
+	</insert>
+	
+	<!-- 공지사항 게시판 관리 -->
+	<!-- 전체 공지사항 글 조회 -->
+	<select id="allnoticeboard" resultType="board">
+		SELECT B.*, M.NICKNAME 
+        FROM BOARD B 
+        INNER JOIN MEMBER M
+        ON B.EMAIL = M.EMAIL
+	    WHERE BOARDTYPE = '공지사항'
+	    AND B_USEABLE = '사용'
+	    ORDER BY BOARD_ID
+	</select>
+	
+	<!-- 현재 페이지 공지사항 글 목록 -->
+	<select id="getnoticelist" parameterType="map" resultType="board">
+		SELECT * FROM 
+        (SELECT ROWNUM R_NUM, BM.* FROM 
+            (SELECT B.*, M.NICKNAME 
+                FROM BOARD B 
+                INNER JOIN MEMBER M
+                ON B.EMAIL = M.EMAIL
+                WHERE BOARDTYPE = '공지사항'
+                AND B_USEABLE = '사용'
+                ORDER BY BOARD_ID) BM
+        )
+        WHERE R_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<!-- 공지사항 글 상세 -->
+	<select id="oneAdminBoard" parameterType="board" resultType="board">
+		SELECT B.*, M.NICKNAME FROM BOARD B
+        INNER JOIN MEMBER M
+        ON B.EMAIL = M.EMAIL
+	    WHERE BOARD_ID = #{board_id}
+	</select>
+	
+	<!-- 자유게시판 관리 -->
+	<!-- 전체 자유게시판 글 조회 -->
+	<select id="allfreeboard" resultType="board">
+		SELECT B.*, M.NICKNAME 
+        FROM BOARD B 
+        INNER JOIN MEMBER M
+        ON B.EMAIL = M.EMAIL
+	    WHERE BOARDTYPE = '자유게시판'
+	    AND B_USEABLE = '사용'
+	    ORDER BY BOARD_ID
+	</select>
+	
+	<!-- 현재 페이지 자유게시판 글 목록 -->
+	<select id="getfreeboardlist" parameterType="map" resultType="board">
+		SELECT * FROM 
+        (SELECT ROWNUM R_NUM, BM.* FROM 
+            (SELECT B.*, M.NICKNAME 
+                FROM BOARD B 
+                INNER JOIN MEMBER M
+                ON B.EMAIL = M.EMAIL
+                WHERE BOARDTYPE = '자유게시판'
+                AND B_USEABLE = '사용'
+                ORDER BY BOARD_ID) BM
+        )
+        WHERE R_NUM BETWEEN #{begin} AND #{end}
+	</select>	
+	
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap");
+@import "recet.css";
+@import "variables.css";
+/*component*/
+@import "components/status-bar.css";
+@import "components/nav-bar.css";
+@import "components/screen-header.css";
+@import "components/user-component.css";
+@import "components/badge.css";
+/*screen*/
+@import "screens/login.css";
+@import "screens/friends.css";
+@import "screens/find.css";
+
+body {
+  font-family: "Open Sans", sans-serif;
+  color: #2e363e;
+}
+
+.main-screen {
+  padding: 0px var(--horizontal-space);
+}
+
+button {
+  background-color: lightblue;
+  padding: 10px 15px;
+  border-radius: 5px;
+}

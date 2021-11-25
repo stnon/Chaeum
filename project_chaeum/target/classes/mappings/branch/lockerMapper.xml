@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="locker">
+	<select id="getLockerList" parameterType="locker" resultType="locker">
+		SELECT * FROM LOCKER ORDER BY LOCKER_ID
+	</select>
+	
+	<select id="getLockerList_bid" parameterType="int" resultType="locker">
+		SELECT * FROM LOCKER ORDER BY #{branch_id}
+	</select>
+	
+	<select id="getLocker" parameterType="int" resultType="locker">
+		SELECT * FROM LOCKER WHERE ID = #{locker_id}
+	</select>
+	
+	<insert id="insertLocker" parameterType = "locker" >
+		INSERT INTO LOCKER (seat_id, seat_check, seat_info, seat_price, branch_id)
+		VALUEST (#{seat_id}, #{seat_check}, #{seat_info}, #{seat_price}, #{branch_id})
+	</insert>
+	
+	
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+

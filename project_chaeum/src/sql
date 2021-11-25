@@ -1,0 +1,158 @@
+CREATE TABLE reply (
+	r_id	INT	NOT NULL,
+	r_regdate	date	NULL,
+	r_content	VARCHAR2	NULL,
+	board_id	INT	NOT NULL,
+	email	VARCHAR2(80)	NOT NULL
+);
+
+CREATE TABLE board (
+	board_id	INT	NOT NULL,
+	title	VARCHAR2	NULL,
+	b_contents	VARCHAR2	NULL,
+	count	NUMBER	NULL,
+	b_regdate	DATE	NULL,
+	update_date	DATE	NULL,
+	b_useable	VARCHAR2	NULL,
+	boardType	VARCHAR2	NULL,
+	email	VARCHAR2(80)	NOT NULL
+);
+
+CREATE TABLE visit (
+	visitcnt	INT	NULL,
+	visitdate	DATE	NULL
+);
+
+CREATE TABLE banner (
+	id	INT	NOT NULL,
+	Field	VARCHAR(255)	NULL
+);
+
+CREATE TABLE member (
+	email	VARCHAR2(80)	NOT NULL,
+	m_pass	VARCHAR2(60)	NOT NULL,
+	nickname	VARCHAR2(60)	NOT NULL,
+	phone	VARCHAR2(40)	NOT NULL,
+	m_regdate	DATE	NOT NULL,
+	rank	VARCHAR2(20)	NOT NULL,
+	birth	VARCHAR2(40)	NOT NULL,
+	m_useable	VARCHAR2(20)	NULL
+);
+
+CREATE TABLE branch (
+	branch_id	INT	NOT NULL,
+	branch_name	VARCHAR2(40)	NOT NULL,
+	branch_addr	VARCHAR2(500)	NOT NULL,
+	branch_tel	VARCHAR2(20)	NOT NULL,
+	branch_info	VARCHAR2(3000)	NULL
+);
+
+CREATE TABLE studyroom (
+	studyroom_id	INT	NOT NULL,
+	studyroom_name	VARCHAR2(20)	NOT NULL,
+	studyroom_price	NUMBER(30)	NOT NULL,
+	studyroom_num	VARCHAR2(20)	NOT NULL,
+	studyroom_size	VARCHAR2(20)	NOT NULL,
+	studyroom_structure	VARCHAR2(20)	NOT NULL,
+	studyroom_info	VARCHAR2(4000)	NOT NULL,
+	branch_id	INT	NOT NULL
+);
+
+CREATE TABLE seat (
+	seat_id	INT	NOT NULL,
+	seat_check	VARCHAR2(80)	NOT NULL,
+	seat_info	VARCHAR2(40)	NOT NULL,
+	seat_price	NUMBER(30)	NOT NULL,
+	branch_id	INT	NOT NULL
+);
+
+CREATE TABLE locker (
+	locker_id	INT	NOT NULL,
+	locker_check	VARCHAR2(20)	NOT NULL,
+	locker_price	NUMBER(30)	NOT NULL,
+	branch_id	INT	NOT NULL
+);
+
+CREATE TABLE reservation (
+	reservation_id	INT	NOT NULL,
+	reservation_checkin	VARCHAR2(60)	NOT NULL,
+	reservation_checkout	VARCHAR2(60)	NOT NULL,
+	reservation_status	VARCHAR2(60)	NOT NULL,
+	reservation_price	NUMBER(30)	NOT NULL,
+	reservation_date	DATE	NOT NULL,
+	payment_id	INT	NOT NULL,
+	email	VARCHAR2(80)	NOT NULL,
+	studyroom_id	INT	NOT NULL,
+	seat_id	INT	NOT NULL,
+	locker_id	INT	NOT NULL
+);
+
+CREATE TABLE payment (
+	payment_id	INT	NOT NULL,
+	payment_date	DATE	NOT NULL,
+	payment_method	VARCHAR2(20)	NOT NULL
+);
+
+CREATE TABLE AD (
+	id	INT	NOT NULL,
+	ad_email	VARCHAR2	NULL,
+	ad_phone	VARCHAR2	NULL,
+	member_id	VARCHAR2	NULL
+);
+
+CREATE TABLE Message (
+	id	INT	NOT NULL,
+	sm_title	VARCHAR2	NULL,
+	sm_content	VARCHAR2	NULL,
+	sm_date	VARCHAR2	NULL,
+	member_id	VARCHAR2	NULL
+);
+
+ALTER TABLE reply ADD CONSTRAINT PK_REPLY PRIMARY KEY (
+	r_id
+);
+
+ALTER TABLE board ADD CONSTRAINT PK_BOARD PRIMARY KEY (
+	board_id
+);
+
+ALTER TABLE banner ADD CONSTRAINT PK_BANNER PRIMARY KEY (
+	id
+);
+
+ALTER TABLE member ADD CONSTRAINT PK_MEMBER PRIMARY KEY (
+	email
+);
+
+ALTER TABLE branch ADD CONSTRAINT PK_BRANCH PRIMARY KEY (
+	branch_id
+);
+
+ALTER TABLE studyroom ADD CONSTRAINT PK_STUDYROOM PRIMARY KEY (
+	studyroom_id
+);
+
+ALTER TABLE seat ADD CONSTRAINT PK_SEAT PRIMARY KEY (
+	seat_id
+);
+
+ALTER TABLE locker ADD CONSTRAINT PK_LOCKER PRIMARY KEY (
+	locker_id
+);
+
+ALTER TABLE reservation ADD CONSTRAINT PK_RESERVATION PRIMARY KEY (
+	reservation_id
+);
+
+ALTER TABLE payment ADD CONSTRAINT PK_PAYMENT PRIMARY KEY (
+	payment_id
+);
+
+ALTER TABLE AD ADD CONSTRAINT PK_AD PRIMARY KEY (
+	id
+);
+
+ALTER TABLE Message ADD CONSTRAINT PK_MESSAGE PRIMARY KEY (
+	id
+);
+

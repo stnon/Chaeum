@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="userDAO">
+	<!--  로그인 -->
+	<select id="loginUser" parameterType="member" resultType="member">
+		SELECT * FROM MEMBER WHERE EMAIL = #{email} AND M_USEABLE = '사용'
+	</select>
+	
+	<select id="signinCheck" parameterType="member" resultType="member">
+		SELECT * FROM MEMBER WHERE EMAIL = #{email} AND M_USEABLE = '사용'
+	</select>
+	
+	<!-- 로그인체크 -->
+	<select id="loginChk" parameterType="String" resultType="int">
+		SELECT count(*) FROM MEMBER WHERE EMAIL = #{email} AND M_USEABLE = '사용'
+	</select>
+	
+	<!--  회원가입 -->
+	<insert id="insertUser" parameterType="member">
+		INSERT INTO MEMBER (EMAIL, M_PASS, NICKNAME, PHONE, M_REGDATE,RANK, BIRTH,   M_USEABLE)
+		VALUES (#{email}, #{m_pass}, #{nickname}, #{phone} , SYSDATE, #{rank}, #{birth} , '사용')
+	</insert>
+	
+	<!-- 닉네임 중복 확인 -->
+	<select id="checkName" parameterType="String" resultType="int">
+		SELECT count(*) 
+  		FROM MEMBER
+		WHERE NICKNAME = #{nickname} 
+	</select>
+	
+	<!-- 이메일 중복 확인 -->
+	<select id="checkEmail" parameterType="String" resultType="int">
+		SELECT count(*) 
+  		FROM MEMBER
+		WHERE EMAIL = #{email} 
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<update id="userUpdate" parameterType="member">
+		UPDATE MEMBER
+   		   SET M_PASS = #{m_pass},
+	      	   NICKNAME = #{nickname},
+	           PHONE = #{phone},
+	           BIRTH = #{birth}
+	     WHERE EMAIL = #{email}
+	</update>
+	
+	<!--  회원삭제 부분(사용불가로 업데이트) -->
+	<update id="userSignout" parameterType="String">
+		UPDATE MEMBER
+		   SET M_USEABLE = '불가'
+		 WHERE EMAIL = #{email} 
+	</update>
+	
+	<!-- 비밀번호 찾기(재설정) -->
+	<update id="passFind" parameterType="member">
+		UPDATE MEMBER
+		   SET M_PASS = #{m_pass}
+		 WHERE EMAIL = #{email}   
+	</update>
+	
+	<!--  패스워드 체크 -->
+	<select id="passChk" resultType="int">
+		SELECT COUNT(*) FROM MEMBER
+		 WHERE EMAIL = #{email}
+		   AND M_PASS = #{m_pass}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+

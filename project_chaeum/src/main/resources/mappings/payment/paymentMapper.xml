@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="payment">
+
+	<select id="getPayInfo" parameterType="int" resultType="payment">
+		SELECT * FROM PAYMENT WHERE PAYMENT_ID = #{payment_id}
+	</select>
+	
+	<insert id="insertPayment" parameterType="payment">
+		INSERT INTO PAYMENT(payment_id, payment_date, payment_method, payment_price, merchant_uid) 
+				VALUES ((SELECT NVL(MAX(payment_id),0)+1 FROM PAYMENT), SYSDATE, #{payment_method}, #{payment_price}, #{merchant_uid})
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+

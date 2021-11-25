@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="boardDAO">
+	<!--  글쓰기 -->
+	<insert id="insertBoard" parameterType="board">
+		INSERT INTO BOARD (BOARD_ID, TITLE, B_CONTENTS, B_REGDATE, BOARDTYPE,
+							COUNT, EMAIL, B_USEABLE) 
+		VALUES ((SELECT NVL(MAX(BOARD_ID),0)+1 FROM BOARD), #{title}, #{b_contents}, SYSDATE, #{boardtype},  
+				0, #{email}, '사용')
+	</insert>
+
+	
+	<!-- 글 목록 --> 
+	<select id="getBoardList" parameterType="com.bc.chaeum.common.Criteria" resultType="board">
+		SELECT S.BOARD_ID, S.TITLE, S.COUNT, S.B_REGDATE, S.NICKNAME, S.BOARDTYPE, S.B_CONTENTS
+  		  FROM (SELECT B.BOARD_ID, B.TITLE, B.COUNT, B.B_REGDATE, M.NICKNAME, B.BOARDTYPE, B.B_CONTENTS, ROW_NUMBER() OVER(ORDER BY B.BOARD_ID DESC) AS RNUM 
+                  FROM BOARD B, MEMBER M
+                 WHERE B.EMAIL = M.EMAIL AND B_USEABLE = '사용' AND BOARDTYPE = #{boardtype}) S 
+		WHERE 1=1
+		AND RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		<include refid="search"></include>
+		ORDER BY BOARD_ID DESC
+	
+	</select>
+	
+	<select id="getBoardList2" parameterType="String" resultType="board">
+		SELECT *
+		  FROM BOARD
+		  WHERE EMAIL = #{email}
+	
+	</select>
+	
+	<select id="listCount" parameterType="com.bc.chaeum.common.SearchCriteria" resultType="int">
+		SELECT COUNT(BOARD_ID)
+		   FROM BOARD
+		   WHERE 1=1
+		<include refid="search"></include>	
+		   AND BOARD_ID > 0
+		   AND BOARDTYPE = #{boardtype}
+	</select>
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND B_CONTENTS LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'n'.toString()">AND NICKNAME LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (B_CONTENTS LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
+	
+	
+	<!-- 글 상세 --> 
+	<select id="getBoard" parameterType="board" resultType="board">
+		SELECT B.* , M.NICKNAME
+		FROM BOARD B
+		INNER JOIN MEMBER M ON (B.EMAIL = M.EMAIL) 
+		WHERE BOARD_ID = #{board_id}
+	</select>
+	
+	<!-- 글 수정 --> 
+	<update id="updateBoard" parameterType="board">
+		UPDATE BOARD 
+		   SET TITLE = #{title}, 
+		       B_CONTENTS = #{b_contents},
+		       UPDATE_DATE = SYSDATE 
+		 WHERE BOARD_ID = #{board_id}
+	</update>
+	
+	<!-- 글 삭제 --> 
+	<delete id="deleteBoard" parameterType="board">
+		UPDATE BOARD 
+		   SET B_USEABLE = '삭제'
+		 WHERE BOARD_ID = #{board_id}
+	</delete>
+	
+	<!-- 게시글 조회수 -->
+	<update id="boardCnt" parameterType="int">
+    	UPDATE BOARD 
+    	   SET COUNT = COUNT + 1
+    	 WHERE BOARD_ID = #{board_id}
+    </update>
+	
+</mapper>
+
+
+
+
+
+
+
+

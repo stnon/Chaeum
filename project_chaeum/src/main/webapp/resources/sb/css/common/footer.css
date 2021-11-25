@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.footer {
+	display: block;
+	position: relative;
+	margin-top: 100px;
+	padding: 54px 0 50px;
+	background: #ebebeb;
+	color: #656565;
+	font-size: 13px;
+}

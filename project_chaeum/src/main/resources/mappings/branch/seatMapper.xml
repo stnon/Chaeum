@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="seat">
+	<select id="selectAllSeat" parameterType="seat" resultType="seat">
+		SELECT * FROM SEAT ORDER BY SEAT_ID
+	</select>
+	
+	<select id="selectOneSeat" parameterType="string" resultType="seat">
+		SELECT * FROM SEAT WHERE ID = #{seat_id}
+	</select>
+
+	
+</mapper>
+
+
+
+
+
+
+
+
+

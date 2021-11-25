@@ -1,0 +1,78 @@
+.window {
+  display: flex;
+  flex-direction: column;
+  width: 980px;
+  height: 480px;
+}
+.upside {
+  display: flex;
+  height: 380px;
+}
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  font-size: 11pt;
+}
+.downside {
+  display: flex;
+}
+.selected {
+  width: 744px;
+  height: 100px;
+  margin-top: 2px;
+  align-items: center;
+  border: 3px solid black;
+}
+.letReserve {
+  width: 10%;
+  margin-top: 2px;
+  margin-left: 10px;
+}
+.inquiry_seat_submit {
+  margin-top: 25px;
+  cursor: pointer;
+  width: 100%;
+  height: 100px;
+  font-size: larger;
+}
+
+table td {
+  font-size: 9pt;
+}
+.tableLayer {
+  width: 750px;
+  height: 100%;
+  text-align: center;
+  table-layout: fixed;
+  border: 3px solid black;
+}
+.usable {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  border: 3px solid black;
+  background-color: skyblue;
+}
+.notUse {
+  border: 3px solid black;
+  background-color: gray;
+}
+.unusable {
+  width: 100%;
+  height: 100%;
+  border: 3px solid black;
+  background-color: gray;
+}
+.choosenLayer td {
+  padding-left: 10px;
+  padding-top: 10px;
+  font-size: 9pt;
+}
+#reserveBtn {
+  width: 220%;
+  height: 100%;
+  cursor: pointer;
+  font-size: larger;
+}

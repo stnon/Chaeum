@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="replyDAO">
+	
+	<!-- 해당 글 댓글 전체 불러오기 -->
+	<select id="replyList" resultType="reply" parameterType="int">
+		SELECT R.R_ID, R.R_CONTENT, R.R_WRITER, M.NICKNAME, R.R_REGDATE, R.BOARD_ID
+		FROM REPLY R, MEMBER M, BOARD B
+		WHERE R.R_WRITER = M.EMAIL AND R.BOARD_ID = B.BOARD_ID AND B.BOARD_ID = #{board_id}
+		ORDER BY R_REGDATE
+	</select>
+	
+	<!-- 댓글 입력 -->
+	<insert id="insertReply" parameterType="reply" >
+		INSERT INTO REPLY(R_ID, R_CONTENT, R_REGDATE, R_WRITER, BOARD_ID)
+		VALUES ((SELECT NVL(MAX(R_ID),0)+1 FROM REPLY), #{r_content}, SYSDATE, #{r_writer}, #{board_id})
+	</insert>
+	
+	<!-- 댓글 수정전 데이터 가져오기 -->
+	<select id="getReply" parameterType="int" resultType="reply">
+		SELECT R.R_ID, R.R_CONTENT, R.R_WRITER, M.NICKNAME, R.R_REGDATE, R.BOARD_ID
+		FROM REPLY R, MEMBER M, BOARD B
+		WHERE R.R_WRITER = M.EMAIL AND R.BOARD_ID = B.BOARD_ID AND R.R_ID = #{r_id} 
+	</select>
+	
+	<!--  댓글 수정 -->
+	<update id="updateReply" parameterType="reply" >
+		UPDATE REPLY 
+		   SET R_CONTENT = #{r_content}
+		 WHERE R_ID = #{r_id}
+	</update>
+	
+	<!--  댓글 삭제 -->
+	<delete id="deleteReply" parameterType="int">
+		DELETE REPLY 
+		 WHERE R_ID = #{r_id}
+	</delete>
+	
+	<!--  내가 쓴 댓글 가져오기 -->
+	<select id="myReply" parameterType="String" resultType="reply">
+		SELECT *
+		FROM REPLY
+		WHERE R_WRITER = #{email}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+

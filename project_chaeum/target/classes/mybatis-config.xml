@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	
+	<typeAliases>
+		<typeAlias alias="message" type="com.bc.chaeum.member.service.MessageVO" />
+		<typeAlias alias="board" type="com.bc.chaeum.board.service.BoardVO" />
+		<typeAlias alias="reply" type="com.bc.chaeum.board.service.ReplyVO" />
+		<typeAlias alias="member" type="com.bc.chaeum.member.service.MemberVO" />
+		<typeAlias alias="branch" type="com.bc.chaeum.branch.service.BranchVO" />
+		<typeAlias alias="studyroom" type="com.bc.chaeum.branch.service.StudyroomVO" />
+		<typeAlias alias="seat" type="com.bc.chaeum.branch.service.SeatVO" />
+		<typeAlias alias="locker" type="com.bc.chaeum.branch.service.LockerVO" />
+		<typeAlias alias="admin" type="com.bc.chaeum.admin.service.AdminVO"/>
+		<typeAlias alias="reservation" type="com.bc.chaeum.reservation.service.ReservationVO"/>
+		<typeAlias alias="payment" type="com.bc.chaeum.payment.service.PaymentVO"/>
+	</typeAliases>
+	
+	
+  <mappers>
+  	<!-- 스프링 설정파일 mapperLocations 설정으로 대체
+  	<mapper resource="mappings/BoardMapper.xml"/>
+  	<mapper resource="mappings/UserMapper.xml"/> -->
+  </mappers>
+  
+</configuration>
